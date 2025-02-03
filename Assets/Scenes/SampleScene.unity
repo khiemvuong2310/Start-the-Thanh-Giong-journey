@@ -395,6 +395,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1775105498}
+  - {fileID: 576325607}
   m_Father: {fileID: 1057618636}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &464825628
@@ -616,6 +617,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7346728735111707889, guid: 9ed5172fcf588b9479a19ab3f38767ad, type: 3}
   m_PrefabInstance: {fileID: 558028860}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &576325606
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 576325607}
+  m_Layer: 0
+  m_Name: SlashSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &576325607
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576325606}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.418, y: 0.165, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 464825627}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -803,7 +835,7 @@ GameObject:
   - component: {fileID: 1057618640}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1090,13 +1122,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1775105497}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.02404994, y: 0.010379952, z: -0.9178202, w: -0.39613116}
-  m_LocalPosition: {x: 0.11, y: 0.558, z: -0.011}
+  m_LocalRotation: {x: -0, y: 0, z: -0.7200667, w: -0.6939049}
+  m_LocalPosition: {x: 0.3, y: 0.4, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 464825627}
-  m_LocalEulerAnglesHint: {x: 0, y: -3.002, z: 493.31}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 452.12}
 --- !u!212 &1775105499
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1182,8 +1214,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32f650dfecd329d4bb59e1fa9d8866dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slashAnimPrefab: {fileID: 0}
-  slashAnimSpawnPoint: {fileID: 0}
+  slashAnimPrefab: {fileID: 3057059999415186440, guid: 835744bd37954534791bc3854908071c, type: 3}
+  slashAnimSpawnPoint: {fileID: 576325607}
 --- !u!1001 &1842371029
 PrefabInstance:
   m_ObjectHideFlags: 0
