@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3036214789331802641}
   - component: {fileID: 8031366697520653533}
   - component: {fileID: 2730206630349215408}
+  - component: {fileID: 8304508921828841784}
   m_Layer: 0
   m_Name: Blue Slim
   m_TagString: Untagged
@@ -197,3 +198,16 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8304508921828841784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4757404690509900828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cb8545f678002c4eb4d875aef640ba0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 3

@@ -69,5 +69,4 @@ public class PlayerController : MonoBehaviour
             FacingLeft = false;
         }
     }
-
 }
