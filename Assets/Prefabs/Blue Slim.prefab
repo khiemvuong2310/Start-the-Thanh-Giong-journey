@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8031366697520653533}
   - component: {fileID: 2730206630349215408}
   - component: {fileID: 8304508921828841784}
+  - component: {fileID: 6991873628382561791}
   m_Layer: 0
   m_Name: Blue Slim
   m_TagString: Untagged
@@ -211,3 +212,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 3
+--- !u!114 &6991873628382561791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4757404690509900828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c35dec14dbe70e145897ac2f6250cc5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockBackTime: 0.1
