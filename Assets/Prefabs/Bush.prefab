@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1687705862219690486}
   - component: {fileID: 7128603226084798464}
+  - component: {fileID: 7932384649426318056}
   - component: {fileID: 3720913761574026649}
   m_Layer: 0
   m_Name: Bush
@@ -85,6 +86,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7932384649426318056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2404396839957177878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0073b505518c50c4cbda3a71ad8bd497, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyVFX: {fileID: 2481459959068051486, guid: 4d2d5a6b6cbbbec4bb17c0a36e28817e, type: 3}
 --- !u!70 &3720913761574026649
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
