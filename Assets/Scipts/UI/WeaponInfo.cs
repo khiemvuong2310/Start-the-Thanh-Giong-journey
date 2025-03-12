@@ -9,4 +9,10 @@ public class WeaponInfo : ScriptableObject
     public float weaponCooldown;
     public int weaponDamage;
     public float weaponRange;
+
+    public void IncreaseWeaponDamage(int amount)
+    {
+        weaponDamage += amount;
+        Debug.Log("Weapon: "+ weaponDamage);
+    }
 }

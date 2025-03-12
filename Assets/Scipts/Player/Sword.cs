@@ -1,9 +1,12 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Sword : MonoBehaviour, IWeapon
 {
+
+    public static Sword Instance { get; private set; } // ✅ Singleton
+
     [SerializeField] private GameObject slashAnimPrefab;
     [SerializeField] private Transform slashAnimSpawnPoint;
     [SerializeField] private float swordAttackCD = .5f;
@@ -11,11 +14,18 @@ public class Sword : MonoBehaviour, IWeapon
 
     private Transform weaponCollider;
     private Animator myAnimator;
-
     private GameObject slashAnim;
 
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         myAnimator = GetComponent<Animator>();
     }
 
@@ -23,6 +33,42 @@ public class Sword : MonoBehaviour, IWeapon
     {
         weaponCollider = PlayerController.Instance.GetWeaponCollider();
         slashAnimSpawnPoint = GameObject.Find("SlashSpawnPoint").transform;
+        
+        // Cập nhật sát thương cho DamageSource khi khởi tạo
+        UpdateDamageSourceDamage();
+    }
+
+    public void UpgradeWeaponDamage(int amount)
+    {
+        if (weaponInfo != null)
+        {
+            weaponInfo.IncreaseWeaponDamage(amount);
+            Debug.Log("Weapon damage increased! New damage: " + weaponInfo.weaponDamage);
+            
+            // Cập nhật sát thương cho DamageSource
+            UpdateDamageSourceDamage();
+        }
+        else
+        {
+            Debug.LogWarning("WeaponInfo is not assigned!");
+        }
+    }
+
+    // Phương thức mới để cập nhật sát thương cho tất cả DamageSource
+    private void UpdateDamageSourceDamage()
+    {
+        if (weaponCollider != null)
+        {
+            DamageSource damageSource = weaponCollider.GetComponent<DamageSource>();
+            if (damageSource != null)
+            {
+                damageSource.SetDamageAmount(weaponInfo.weaponDamage);
+            }
+            else
+            {
+                Debug.LogWarning("DamageSource component not found on weaponCollider!");
+            }
+        }
     }
 
     private void Update()
@@ -37,6 +83,7 @@ public class Sword : MonoBehaviour, IWeapon
 
     public void Attack()
     {
+        SoundManager.Instance.PlaySound2D("SwordAttack");
         myAnimator.SetTrigger("Attack");
         weaponCollider.gameObject.SetActive(true);
         slashAnim = Instantiate(slashAnimPrefab, slashAnimSpawnPoint.position, Quaternion.identity);

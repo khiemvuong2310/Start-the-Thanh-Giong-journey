@@ -1,15 +1,25 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
     [SerializeField] private float roamChangeDirFloat = 2f;
+    [SerializeField] private float attackRange = 5f;
+    [SerializeField] private MonoBehaviour enemyType;
+    [SerializeField] private float attackCooldown = 2f;
+    [SerializeField] private bool stopMovingWhileAttacking = false;
+
+    private bool canAttack = true;
 
     private enum State
     {
-        Roaming
+        Roaming,
+        Attacking
     }
+
+    private Vector2 roamPosition;
+    private float timeRoaming = 0f;
 
     private State state;
     private EnemyPathfinding enemyPathfinding;
@@ -22,21 +32,92 @@ public class EnemyAI : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(RoamingRoutine());
+        roamPosition = GetRoamingPosition();
     }
 
-    private IEnumerator RoamingRoutine()
+    private void Update()
     {
-        while (state == State.Roaming)
+        MovementStateControl();
+    }
+
+    private void MovementStateControl()
+    {
+        switch (state)
         {
-            Vector2 roamPosition = GetRoamingPosition();
-            enemyPathfinding.MoveTo(roamPosition);
-            yield return new WaitForSeconds(roamChangeDirFloat);
+            default:
+            case State.Roaming:
+                Roaming();
+                break;
+
+            case State.Attacking:
+                Attacking();
+                break;
         }
+    }
+
+    private void Roaming()
+    {
+        timeRoaming += Time.deltaTime;
+
+        enemyPathfinding.MoveTo(roamPosition);
+
+        // Kiểm tra Player còn tồn tại hay không
+        if (PlayerController.Instance != null &&
+            Vector2.Distance(transform.position, PlayerController.Instance.transform.position) < attackRange)
+        {
+            state = State.Attacking;
+        }
+
+        if (timeRoaming > roamChangeDirFloat)
+        {
+            roamPosition = GetRoamingPosition();
+        }
+    }
+
+    private void Attacking()
+    {
+        // Kiểm tra Player còn tồn tại hay không
+        if (PlayerController.Instance == null)
+        {
+            state = State.Roaming; 
+            return;
+        }
+
+        if (Vector2.Distance(transform.position, PlayerController.Instance.transform.position) > attackRange)
+        {
+            state = State.Roaming;
+        }
+
+        if (attackRange != 0 && canAttack)
+        {
+            canAttack = false;
+
+            SoundManager.Instance.PlaySound2D("EnemyAttack");
+            (enemyType as IEnemy).Attack();
+
+            if (stopMovingWhileAttacking)
+            {
+                enemyPathfinding.StopMoving();
+            }
+            else
+            {
+                enemyPathfinding.MoveTo(roamPosition);
+            }
+
+            StartCoroutine(AttackCooldownRoutine());
+        }
+    }
+
+
+    private IEnumerator AttackCooldownRoutine()
+    {
+        yield return new WaitForSeconds(attackCooldown);
+        canAttack = true;
     }
 
     private Vector2 GetRoamingPosition()
     {
+        timeRoaming = 0f;
         return new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
     }
 }

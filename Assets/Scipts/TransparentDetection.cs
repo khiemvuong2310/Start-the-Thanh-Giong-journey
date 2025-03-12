@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -37,6 +37,8 @@ public class TransparentDetection : MonoBehaviour
     {
         if (other.gameObject.GetComponent<PlayerController>())
         {
+            if (!gameObject.activeInHierarchy) return; 
+
             if (spriteRenderer)
             {
                 StartCoroutine(FadeRoutine(spriteRenderer, fadeTime, spriteRenderer.color.a, 1f));
@@ -47,6 +49,7 @@ public class TransparentDetection : MonoBehaviour
             }
         }
     }
+
 
     private IEnumerator FadeRoutine(SpriteRenderer spriteRenderer, float fadeTime, float startValue, float targetTransparency)
     {
