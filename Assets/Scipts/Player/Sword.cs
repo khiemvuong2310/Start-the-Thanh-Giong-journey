@@ -27,6 +27,7 @@ public class Sword : MonoBehaviour, IWeapon
             Destroy(gameObject);
         }
         myAnimator = GetComponent<Animator>();
+        weaponInfo = Instantiate(weaponInfo);
     }
 
     private void Start()
@@ -45,7 +46,6 @@ public class Sword : MonoBehaviour, IWeapon
             weaponInfo.IncreaseWeaponDamage(amount);
             Debug.Log("Weapon damage increased! New damage: " + weaponInfo.weaponDamage);
             
-            // Cập nhật sát thương cho DamageSource
             UpdateDamageSourceDamage();
         }
         else

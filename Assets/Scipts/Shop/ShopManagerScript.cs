@@ -9,16 +9,17 @@ public class ShopManagerScript : MonoBehaviour
 {
     public int[,] shopItems = new int[4, 4]; 
     public TMP_Text CoinTxt;
-    public float coins;
+    // Biến coins không còn cần thiết vì chúng ta sử dụng EconomyManager
+    // public float coins;
+    
     void Start()
     {
         UpdateCoinUI();
 
-        //CoinTxt.text = coins.ToString();
         // ID sản phẩm
-        shopItems[1, 1] = 1;
-        shopItems[1, 2] = 2;
-        shopItems[1, 3] = 3;
+        shopItems[1, 1] = 1; // Hồi máu
+        shopItems[1, 2] = 2; // Hồi stamina
+        shopItems[1, 3] = 3; // Nâng cấp sát thương
 
         // Giá sản phẩm
         shopItems[2, 1] = 3;
@@ -30,6 +31,7 @@ public class ShopManagerScript : MonoBehaviour
         shopItems[3, 2] = 0;
         shopItems[3, 3] = 0;
     }
+    
     // ✅ Phương thức cập nhật số tiền trên UI
     private void UpdateCoinUI()
     {
@@ -42,6 +44,7 @@ public class ShopManagerScript : MonoBehaviour
             Debug.LogError("CoinTxt chưa được gán trong ShopManager!");
         }
     }
+    
     public void Buy()
     {
         GameObject ButtonRef = EventSystem.current.currentSelectedGameObject;
@@ -81,34 +84,102 @@ public class ShopManagerScript : MonoBehaviour
             UpdateCoinUI();
 
             Debug.Log("Đã mua item ID " + itemID + ". Còn lại: " + EconomyManager.Instance.GetCurrentGold() + " coins.");
-            // Nếu mua item có ID là 1, gọi phương thức HealPlayer
-            if (itemID == 1)
+            
+            // Xử lý hiệu ứng của item dựa trên ID
+            switch (itemID)
             {
-                PlayerHealth.Instance.HealPlayer();
-                Debug.Log("Người chơi đã được hồi máu!");
-            }
-            if (itemID == 2)
-            {
-                Stamina.Instance.RefreshStamina();
-                Debug.Log("Người chơi đã được hồi stamina!");
-            }
-            if (itemID == 3)
-            {
-                Sword.Instance.UpgradeWeaponDamage(1);
-                Debug.Log("Người chơi đã được up power!");
+                case 1: // Hồi máu
+                    PlayerHealth.Instance.HealPlayer();
+                    Debug.Log("Người chơi đã được hồi máu!");
+                    // Phát âm thanh hồi máu nếu có
+                    if (SoundManager.Instance != null)
+                    {
+                        SoundManager.Instance.PlaySound2D("Heal");
+                    }
+                    break;
+                    
+                case 2: // Hồi stamina
+                    Stamina.Instance.RefreshStamina();
+                    Debug.Log("Người chơi đã được hồi stamina!");
+                    // Phát âm thanh hồi stamina nếu có
+                    if (SoundManager.Instance != null)
+                    {
+                        SoundManager.Instance.PlaySound2D("Stamina");
+                    }
+                    break;
+                    
+                case 3: // Nâng cấp sát thương
+                    // Nâng cấp sát thương cho vũ khí hiện tại
+                    UpgradeCurrentWeapon();
+                    Debug.Log("Người chơi đã được up power!");
+                    // Phát âm thanh nâng cấp nếu có
+                    if (SoundManager.Instance != null)
+                    {
+                        SoundManager.Instance.PlaySound2D("PowerUp");
+                    }
+                    break;
             }
         }
         else
         {
             Debug.LogWarning("Không đủ tiền để mua item ID " + itemID);
+            // Phát âm thanh không đủ tiền nếu có
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.PlaySound2D("Error");
+            }
         }
+    }
 
-        //if (coins >= shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID])
-        //{
-        //    coins -= shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID];
-        //    shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID]++;
-        //    CoinTxt.text = coins.ToString();
-        //    buttonInfo.QuantityTxt.text = shopItems[3, buttonInfo.ItemID].ToString();
-        //}
+    /// <summary>
+    /// Phương thức nâng cấp sát thương cho vũ khí hiện tại của người chơi.
+    /// Hỗ trợ các loại vũ khí: Sword, Bow, Staff, Lance.
+    /// </summary>
+    private void UpgradeCurrentWeapon()
+    {
+        // Kiểm tra vũ khí hiện tại và nâng cấp sát thương
+        if (ActiveWeapon.Instance == null)
+        {
+            Debug.LogWarning("ActiveWeapon.Instance không tồn tại!");
+            return;
+        }
+        
+        MonoBehaviour currentWeapon = ActiveWeapon.Instance.CurrentActiveWeapon;
+        
+        if (currentWeapon == null)
+        {
+            Debug.LogWarning("Người chơi không có vũ khí nào được trang bị!");
+            return;
+        }
+        
+        // Nâng cấp sát thương dựa trên loại vũ khí
+        if (currentWeapon is Sword)
+        {
+            // Nâng cấp sát thương cho Sword
+            // Sword.Instance.UpgradeWeaponDamage sẽ tự động cập nhật DamageSource
+            Sword.Instance.UpgradeWeaponDamage(1);
+            Debug.Log("Đã nâng cấp sát thương cho Sword!");
+        }
+        else if (currentWeapon is Bow)
+        {
+            // Nâng cấp sát thương cho Bow
+            // Bow.Instance.UpgradeWeaponDamage sẽ tự động cập nhật sát thương cho Projectile khi bắn
+            Bow.Instance.UpgradeWeaponDamage(1);
+            Debug.Log("Đã nâng cấp sát thương cho Bow!");
+        }
+        else if (currentWeapon is Staff)
+        {
+            // Nếu có Staff, thêm code tương tự ở đây
+            Debug.Log("Staff chưa được hỗ trợ nâng cấp sát thương!");
+        }
+        else if (currentWeapon is Lance)
+        {
+            // Nếu có Lance, thêm code tương tự ở đây
+            Debug.Log("Lance chưa được hỗ trợ nâng cấp sát thương!");
+        }
+        else
+        {
+            Debug.LogWarning("Không tìm thấy vũ khí để nâng cấp!");
+        }
     }
 }

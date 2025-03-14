@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class Projectile : MonoBehaviour
 {
     //Không được bỏ nha liên quan đến arrow attack á
@@ -13,6 +14,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] private GameObject particleOnHitPrefabVFX;
     [SerializeField] private bool isEnemyProjectile = false;
     [SerializeField] private float projectileRange = 10f;
+    [SerializeField] private int projectileDamage = 1;
 
     private Vector3 startPosition;
 
@@ -37,6 +39,12 @@ public class Projectile : MonoBehaviour
         this.moveSpeed = moveSpeed;
     }
 
+    public void UpdateProjectileDamage(int damage)
+    {
+        this.projectileDamage = damage;
+        Debug.Log("Projectile damage set to: " + projectileDamage);
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         EnemyHealth enemyHealth = other.gameObject.GetComponent<EnemyHealth>();
@@ -53,14 +61,14 @@ public class Projectile : MonoBehaviour
             //}
             if (enemyHealth && !isEnemyProjectile)
             {
-                Debug.Log($"Enemy hit! Dealing damage.");
-                enemyHealth.TakeDamage(1);
+                Debug.Log($"Enemy hit! Dealing damage: {projectileDamage}");
+                enemyHealth.TakeDamage(projectileDamage);
                 Instantiate(particleOnHitPrefabVFX, transform.position, transform.rotation);
                 Destroy(gameObject);
             }
             else if (player && isEnemyProjectile)
             {
-                player.TakeDamage(1, transform);
+                player.TakeDamage(projectileDamage, transform);
                 Instantiate(particleOnHitPrefabVFX, transform.position, transform.rotation);
                 Destroy(gameObject);
             }
