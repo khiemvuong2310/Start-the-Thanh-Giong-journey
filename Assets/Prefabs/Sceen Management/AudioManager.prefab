@@ -172,7 +172,7 @@ AudioSource:
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
-  Mute: 1
+  Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
@@ -297,7 +297,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 2600079571861660816, guid: aa2f6fbcb61d0164f83f1f0941149a4e, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0

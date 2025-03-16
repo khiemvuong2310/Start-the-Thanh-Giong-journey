@@ -8,4 +8,5 @@ public class SkipSceneIntro : MonoBehaviour
     {
         SceneManager.LoadScene("Scene1");
     }
+
 }

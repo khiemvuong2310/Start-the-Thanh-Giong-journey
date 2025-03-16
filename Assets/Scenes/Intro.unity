@@ -734,10 +734,10 @@ VideoPlayer:
   m_TargetAudioSources:
   - {fileID: 0}
   m_DirectAudioVolumes:
-  - 0.3
+  - 1
   m_Url: 
   m_EnabledAudioTracks: 01
-  m_DirectAudioMutes: 01
+  m_DirectAudioMutes: 00
   m_ControlledAudioTrackCount: 1
   m_PlayOnAwake: 1
   m_SkipOnDrop: 1
@@ -755,6 +755,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8119468358068730705}
   - component: {fileID: 437708677934065734}
+  - component: {fileID: 8119468358068730706}
   m_Layer: 0
   m_Name: Film
   m_TagString: Untagged
@@ -777,6 +778,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8119468358068730706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539451292975261502}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7ffafd0d789a724190ae4df74138575, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  videoPlayer: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

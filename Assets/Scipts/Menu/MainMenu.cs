@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,15 +19,10 @@ public class MainMenu : MonoBehaviour
 
     public void Play()
     {
-        //if (LevelManager.Instance == null)
-        //{
-        //    Debug.LogError("LevelManager Instance is NULL!");
-        //    return;
-        //}
-
-        //LevelManager.Instance.LoadScene("Intro", "CrossFade");
+        MusicManager.Instance.StopMusicImmediately(); 
         SceneManager.LoadScene("Intro");
     }
+
 
     public void Quit()
     {
