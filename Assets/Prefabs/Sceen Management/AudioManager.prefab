@@ -80,6 +80,9 @@ MonoBehaviour:
   - groupID: EnemyAttack
     clips:
     - {fileID: 8300000, guid: acd05aae2cbda8b4fb2a024e9cefde1e, type: 3}
+  - groupID: Victory
+    clips:
+    - {fileID: 8300000, guid: 5ab35ea2a026bf14ab769599718895c0, type: 3}
 --- !u!114 &3019587317380404920
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class Key : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class Key : MonoBehaviour
         canvas.interactable = true;
         canvas.blocksRaycasts = true;
 
+        MusicManager.Instance.PlayMusic("Victory");
         Debug.Log("Trò chơi kết thúc! Chuyển cảnh sau 3 giây...");
         yield return new WaitForSeconds(3f); 
 
